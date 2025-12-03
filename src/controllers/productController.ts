@@ -6,6 +6,7 @@ import {
   UpdateProductInput, 
   ProductQuery 
 } from '../schemas/index.js';
+import { mapOrderBy, mapImagesToUrls } from '../utils/queryMapper.js';
 
 export const productController = {
   // 상품 목록 조회 (좋아요 상태 포함, limit 지원)
@@ -13,16 +14,7 @@ export const productController = {
     const { orderBy, limit } = req.query;
     const userId = req.user?.userId;
 
-    let order;
-    if (orderBy === 'price') {
-      order = { price: 'desc' as const };
-    } else if (orderBy === 'favorite') {
-      order = { favoriteCount: 'desc' as const };
-    } else {
-      order = { createdAt: 'desc' as const };
-    }
-
-    // limit이 지정된 경우 (베스트 상품 조회)
+    const order = mapOrderBy(orderBy);
     const take = limit ? Number(limit) : undefined;
 
     const products = await productRepository.findManyWithLikes({
@@ -57,13 +49,7 @@ export const productController = {
     }
 
     const { name, description, price, tags, images } = req.body;
-
-    let imageUrls: string[] = [];
-    if (images && Array.isArray(images)) {
-      imageUrls = images;
-    } else if (req.file) {
-      imageUrls = [`/uploads/products/${req.file.filename}`];
-    }
+    const imageUrls = mapImagesToUrls(images, req.file);
 
     const newProduct = await productRepository.create({
       ownerId: userId,
@@ -81,13 +67,12 @@ export const productController = {
   async updateProduct(req: AuthenticatedRequest<UpdateProductInput, unknown, { id: string }>, res: Response): Promise<void> {
     const { id } = req.params;
     const { images, ...updateData } = req.body;
-    const updatePayload: UpdateProductInput & { images?: string[] } = { ...updateData };
-
-    if (images && Array.isArray(images)) {
-      updatePayload.images = images;
-    } else if (req.file) {
-      updatePayload.images = [`/uploads/products/${req.file.filename}`];
-    }
+    const imageUrls = mapImagesToUrls(images, req.file);
+    
+    const updatePayload: UpdateProductInput & { images?: string[] } = {
+      ...updateData,
+      ...(imageUrls.length > 0 && { images: imageUrls }),
+    };
 
     const product = await productRepository.update(id, updatePayload);
     res.json(product);

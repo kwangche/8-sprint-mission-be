@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { commentRepository } from '../repositories/commentRepository.js';
+import { commentService } from '../services/commentService.js';
 import { AuthenticatedRequest } from '../types/express.js';
 import { CreateCommentInput, UpdateCommentInput, CommentQuery } from '../schemas/index.js';
 
@@ -15,11 +15,7 @@ export const commentController = {
     const { content } = req.body;
     const { articleId } = req.params;
 
-    const comment = await commentRepository.createForArticle({
-      userId,
-      content,
-      articleId,
-    });
+    const comment = await commentService.createArticleComment(userId, content, articleId);
     res.status(201).json(comment);
   },
 
@@ -34,11 +30,7 @@ export const commentController = {
     const { content } = req.body;
     const { productId } = req.params;
 
-    const comment = await commentRepository.createForProduct({
-      userId,
-      content,
-      productId,
-    });
+    const comment = await commentService.createProductComment(userId, content, productId);
     res.status(201).json(comment);
   },
 
@@ -47,14 +39,14 @@ export const commentController = {
     const { id } = req.params;
     const { content } = req.body;
 
-    const comment = await commentRepository.update(id, { content });
+    const comment = await commentService.updateComment(id, content);
     res.json(comment);
   },
 
   // 댓글 삭제
   async deleteComment(req: AuthenticatedRequest<unknown, unknown, { id: string }>, res: Response): Promise<void> {
     const { id } = req.params;
-    await commentRepository.delete(id);
+    await commentService.deleteComment(id);
     res.sendStatus(204);
   },
 
@@ -63,11 +55,7 @@ export const commentController = {
     const { articleId } = req.params;
     const { cursor, limit = 10 } = req.query;
 
-    const comments = await commentRepository.findManyByArticle({
-      articleId,
-      cursor: cursor,
-      take: Number(limit),
-    });
+    const comments = await commentService.getArticleComments(articleId, cursor, Number(limit));
 
     res.json({ list: comments });
   },
@@ -77,11 +65,7 @@ export const commentController = {
     const { productId } = req.params;
     const { cursor, limit = 10 } = req.query;
 
-    const comments = await commentRepository.findManyByProduct({
-      productId,
-      cursor: cursor,
-      take: Number(limit),
-    });
+    const comments = await commentService.getProductComments(productId, cursor, Number(limit));
 
     res.json({ list: comments });
   },

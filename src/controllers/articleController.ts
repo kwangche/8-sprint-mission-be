@@ -6,6 +6,7 @@ import {
   UpdateArticleInput, 
   ArticleQuery 
 } from '../schemas/index.js';
+import { mapOrderBy, mapSearchToWhere, mapPagination } from '../utils/queryMapper.js';
 
 export const articleController = {
   // 게시글 등록
@@ -57,26 +58,9 @@ export const articleController = {
     const { page = 1, limit = 10, search = '', orderBy = 'recent' } = req.query;
     const userId = req.user?.userId;
     
-    // 쿼리 파라미터를 숫자로 변환
-    const pageNum = Number(page);
-    const limitNum = Number(limit);
-    const skip = (pageNum - 1) * limitNum;
-
-    let order;
-    if (orderBy === 'favorite') {
-      order = { favoriteCount: 'desc' as const };
-    } else {
-      order = { createdAt: 'desc' as const };
-    }
-
-    const where = search
-      ? {
-          OR: [
-            { title: { contains: search, mode: 'insensitive' as const } },
-            { content: { contains: search, mode: 'insensitive' as const } },
-          ],
-        }
-      : {};
+    const order = mapOrderBy(orderBy);
+    const where = mapSearchToWhere(search, ['title', 'content']);
+    const { skip, take } = mapPagination(Number(page), Number(limit));
 
     const [total, articles] = await Promise.all([
       articleRepository.count(where),
@@ -84,7 +68,7 @@ export const articleController = {
         where,
         orderBy: order,
         skip,
-        take: limitNum,
+        take,
         userId,
       }),
     ]);

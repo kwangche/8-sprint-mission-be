@@ -19,7 +19,7 @@ interface UpdateCommentParams {
 export const commentRepository = {
   // 댓글 생성 (Article용)
   async createForArticle({ userId, content, articleId }: CreateCommentForArticleParams) {
-    const comment = await prisma.comment.create({
+    return await prisma.comment.create({
       data: { userId, content, articleId },
       include: {
         user: {
@@ -31,14 +31,11 @@ export const commentRepository = {
         },
       },
     });
-    
-    const { user, ...rest } = comment;
-    return { ...rest, writer: user };
   },
 
   // 댓글 생성 (Product용)
   async createForProduct({ userId, content, productId }: CreateCommentForProductParams) {
-    const comment = await prisma.comment.create({
+    return await prisma.comment.create({
       data: { userId, content, productId },
       include: {
         user: {
@@ -50,9 +47,6 @@ export const commentRepository = {
         },
       },
     });
-    
-    const { user, ...rest } = comment;
-    return { ...rest, writer: user };
   },
 
   // 댓글 수정
@@ -87,7 +81,7 @@ export const commentRepository = {
 
   // Article 댓글 목록 조회 (cursor)
   async findManyByArticle({ articleId, cursor, take }: { articleId: string; cursor?: string; take: number }) {
-    const comments = await prisma.comment.findMany({
+    return await prisma.comment.findMany({
       where: { articleId, deleted: false },
       orderBy: { createdAt: 'desc' },
       ...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
@@ -106,16 +100,11 @@ export const commentRepository = {
         },
       },
     });
-    
-    return comments.map(comment => {
-      const { user, ...rest } = comment;
-      return { ...rest, writer: user };
-    });
   },
 
   // Product 댓글 목록 조회 (cursor)
   async findManyByProduct({ productId, cursor, take }: { productId: string; cursor?: string; take: number }) {
-    const comments = await prisma.comment.findMany({
+    return await prisma.comment.findMany({
       where: { productId, deleted: false },
       orderBy: { createdAt: 'desc' },
       ...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
@@ -133,11 +122,6 @@ export const commentRepository = {
           },
         },
       },
-    });
-    
-    return comments.map(comment => {
-      const { user, ...rest } = comment;
-      return { ...rest, writer: user };
     });
   },
 };
