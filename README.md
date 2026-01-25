@@ -35,7 +35,7 @@ _위 이미지는 판다마켓의 대표 이미지입니다. 프로젝트가 진
    - Express.js를 이용해 더 복잡한 백엔드 기능을 구현하는 미션입니다. 데이터베이스 연동, 인증 및 권한 관리 등 고급 API 설계가 포함됩니다.
    - **스프린트 미션 6부터 12까지**의 백엔드 내용이 들어 있어요.
 
-> _스프린트 미션 내 프론트엔드 요구사항은 [프론트엔드 레포지토리](https://github.com/codeit-sprint-fullstack/8-Sprint-mission-FE)의 브랜치에서 관리해주세요_
+> _스프린트 미션 내 프론트엔드 요구사항은 [프론트엔드 레포지토리](https://github.com/codeit-sprint-fullstack/5-Sprint-mission-FE)의 브랜치에서 관리해주세요_
 
 ---
 

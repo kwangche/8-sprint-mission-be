@@ -1,0 +1,13 @@
+node_modules
+.env
+.local
+*.http
+*.log
+*.gz
+.DS_Store
+
+.history
+# 업로드된 파일들
+uploads/
+# 빌드 결과물
+dist/

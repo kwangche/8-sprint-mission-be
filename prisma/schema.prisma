@@ -1,0 +1,111 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String            @id @default(uuid()) @db.Uuid
+  email            String            @unique @db.VarChar(255)
+  nickname         String            @db.VarChar(50)
+  password         String            @db.VarChar(255)
+  deleted          Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  products         Product[]
+  productFavorites ProductFavorite[]
+  articles         Article[]
+  articleFavorites ArticleFavorite[]
+  comments         Comment[]
+
+  @@index([createdAt])
+}
+
+model Product {
+  id               String            @id @default(uuid()) @db.Uuid
+  userId           String            @db.Uuid
+  name             String            @db.VarChar(50)
+  description      String?           @db.VarChar(500)
+  price            Decimal           @db.Decimal(10, 2)
+  tags             String[]
+  images           String[]
+  favoriteCount    Int               @default(0)
+  deleted          Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments         Comment[]
+  productFavorites ProductFavorite[]
+
+  @@index([createdAt])
+  @@index([favoriteCount])
+}
+
+model ProductFavorite {
+  id            String   @id @default(uuid()) @db.Uuid
+  userId        String   @db.Uuid
+  productId     String   @db.Uuid
+  favoriteState Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
+model Article {
+  id               String            @id @default(uuid()) @db.Uuid
+  userId           String            @db.Uuid
+  title            String            @db.VarChar(100)
+  content          String            @db.VarChar(2000)
+  favoriteCount    Int               @default(0)
+  deleted          Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments         Comment[]
+  articleFavorites ArticleFavorite[]
+
+  @@index([createdAt])
+  @@index([favoriteCount])
+}
+
+model ArticleFavorite {
+  id            String   @id @default(uuid()) @db.Uuid
+  userId        String   @db.Uuid
+  articleId     String   @db.Uuid
+  favoriteState Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  article       Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, articleId])
+}
+
+model Comment {
+  id          String   @id @default(uuid()) @db.Uuid
+  userId      String   @db.Uuid
+  content     String   @db.VarChar(1000)
+  deleted     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  article     Article? @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  articleId   String?  @db.Uuid
+  product     Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId   String?  @db.Uuid
+
+  @@index([createdAt])
+}
+
