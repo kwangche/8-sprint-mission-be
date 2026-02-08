@@ -1,13 +1,10 @@
-import { 
 import { Response } from 'express';
 
-import { AuthenticatedRequest } from '../types/express.js';
 import { articleRepository } from '../repositories/articleRepository.js';
-  CreateArticleInput, 
-  UpdateArticleInput, 
-  ArticleQuery 
-} from '../schemas/index.js';
 import { mapOrderBy, mapSearchToWhere, mapPagination } from '../utils/queryMapper.js';
+
+import type { ArticleQuery, CreateArticleInput, UpdateArticleInput } from '../schemas/index.js';
+import type { AuthenticatedRequest } from '../types/express.js';
 
 export const articleController = {
   // 게시글 등록

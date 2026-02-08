@@ -1,15 +1,11 @@
 import express from 'express';
-import {
 
-import { asyncHandler } from '../middlewares/errorHandler.js';
 import { productController } from '../controllers/productController.js';
 import { productFavoriteController } from '../controllers/productFavoriteController.js';
+import { authenticate, authorizeOwner, optionalAuthenticate } from '../middlewares/auth.js';
+import { asyncHandler } from '../middlewares/errorHandler.js';
 import { upload } from '../middlewares/upload.js';
-import { validateUUID, validateProduct } from '../middlewares/validation.js';
-  authenticate,
-  optionalAuthenticate,
-  authorizeOwner,
-} from '../middlewares/auth.js';
+import { validateProduct, validateUUID } from '../middlewares/validation.js';
 import { productRepository } from '../repositories/productRepository.js';
 
 const router = express.Router();

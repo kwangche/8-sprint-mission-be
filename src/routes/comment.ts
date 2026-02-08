@@ -1,14 +1,9 @@
 import express from 'express';
-import {
 
-import { asyncHandler } from '../middlewares/errorHandler.js';
 import { commentController } from '../controllers/commentController.js';
-  validateUUID,
-  validateParamUUID,
-  validateCommentData,
-  validateCommentQuery,
-} from '../middlewares/validation.js';
 import { authenticate, authorizeOwner } from '../middlewares/auth.js';
+import { asyncHandler } from '../middlewares/errorHandler.js';
+import { validateCommentData, validateCommentQuery, validateParamUUID, validateUUID } from '../middlewares/validation.js';
 import { commentRepository } from '../repositories/commentRepository.js';
 
 const router = express.Router();

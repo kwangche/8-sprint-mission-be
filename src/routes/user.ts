@@ -1,12 +1,8 @@
 import express from 'express';
-import {
 
-import { asyncHandler } from '../middlewares/errorHandler.js';
 import { userController } from '../controllers/userController.js';
-  validateUser,
-  validateUUID,
-  validateLogin,
-} from '../middlewares/validation.js';
+import { asyncHandler } from '../middlewares/errorHandler.js';
+import { validateLogin, validateUser, validateUUID } from '../middlewares/validation.js';
 
 const router = express.Router();
 

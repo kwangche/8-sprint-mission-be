@@ -1,4 +1,5 @@
 import prisma from '../../prisma/prismaClient.js';
+
 interface CreateCommentForArticleParams {
   userId: string;
   content: string;

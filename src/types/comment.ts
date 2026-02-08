@@ -1,4 +1,5 @@
 import { User } from './user';
+
 // 댓글 기본 타입
 export interface Comment {
   id: string;

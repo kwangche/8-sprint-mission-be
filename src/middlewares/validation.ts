@@ -1,16 +1,7 @@
-import {
 import { Request, Response, NextFunction } from 'express';
-import { z, ZodSchema, ZodError, ZodIssue } from 'zod';
-  uuidSchema,
-  signInSchema,
-  signUpSchema,
-  createArticleSchema,
-  createCommentSchema,
-  createProductSchema,
-  commentQuerySchema,
-  productQuerySchema,
-  articleQuerySchema,
-} from '../schemas/index.js';
+import { z, ZodError, ZodIssue, ZodSchema } from 'zod';
+
+import { articleQuerySchema, commentQuerySchema, createArticleSchema, createCommentSchema, createProductSchema, productQuerySchema, signInSchema, signUpSchema, uuidSchema } from '../schemas/index.js';
 
 // Zod 스키마를 사용한 범용 검증 미들웨어
 export const validateBody = <T extends ZodSchema>(schema: T) => {

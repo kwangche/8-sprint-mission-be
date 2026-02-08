@@ -1,13 +1,10 @@
-import { 
 import { Response } from 'express';
 
-import { AuthenticatedRequest } from '../types/express.js';
 import { productRepository } from '../repositories/productRepository.js';
-  CreateProductInput, 
-  UpdateProductInput, 
-  ProductQuery 
-} from '../schemas/index.js';
 import { mapOrderBy, mapImagesToUrls } from '../utils/queryMapper.js';
+
+import type { CreateProductInput, ProductQuery, UpdateProductInput } from '../schemas/index.js';
+import type { AuthenticatedRequest } from '../types/express.js';
 
 export const productController = {
   // 상품 목록 조회 (좋아요 상태 포함, limit 지원)

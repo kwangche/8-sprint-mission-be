@@ -1,10 +1,12 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { Response } from 'express';
+import jwt from 'jsonwebtoken';
 
-import { AuthenticatedRequest } from '../types/express.js';
-import { SignInInput, SignUpInput, RefreshTokenInput, UpdateUserInput } from '../schemas/index.js';
 import { userRepository } from '../repositories/userRepository.js';
+import { SignInInput, SignUpInput, RefreshTokenInput, UpdateUserInput } from '../schemas/index.js';
+
+import type { AuthenticatedRequest } from '../types/express.js';
+
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 const SALT_ROUNDS = 10;
 const ACCESS_TOKEN_EXPIRES_IN = '30m';
