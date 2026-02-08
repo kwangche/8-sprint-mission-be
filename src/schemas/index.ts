@@ -1,5 +1,4 @@
 import { z } from 'zod';
-
 // ================== User Schemas ==================
 
 export const userSchema = z.object({

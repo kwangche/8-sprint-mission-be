@@ -1,7 +1,8 @@
-import { Response } from 'express';
-import { productRepository } from '../repositories/productRepository.js';
-import { AuthenticatedRequest } from '../types/express.js';
 import { 
+import { Response } from 'express';
+
+import { AuthenticatedRequest } from '../types/express.js';
+import { productRepository } from '../repositories/productRepository.js';
   CreateProductInput, 
   UpdateProductInput, 
   ProductQuery 

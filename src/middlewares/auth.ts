@@ -1,8 +1,8 @@
-import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { Response, NextFunction } from 'express';
+
 import { AuthenticatedRequest } from '../types/express.js';
 import { JWTPayload } from '../types/index.js';
-
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
 // 인증 필수 미들웨어

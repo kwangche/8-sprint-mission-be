@@ -1,8 +1,8 @@
 import { Response } from 'express';
-import { commentService } from '../services/commentService.js';
+
 import { AuthenticatedRequest } from '../types/express.js';
 import { CreateCommentInput, UpdateCommentInput, CommentQuery } from '../schemas/index.js';
-
+import { commentService } from '../services/commentService.js';
 export const commentController = {
   // 자유게시판 댓글 등록
   async createArticleComment(req: AuthenticatedRequest<CreateCommentInput, unknown, { articleId: string }>, res: Response): Promise<void> {

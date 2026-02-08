@@ -1,5 +1,4 @@
 import prisma from '../../prisma/prismaClient.js';
-
 interface ToggleParams {
   userId: string;
   articleId: string;

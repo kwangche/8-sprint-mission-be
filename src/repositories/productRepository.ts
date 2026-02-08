@@ -1,7 +1,7 @@
-import prisma from '../../prisma/prismaClient.js';
-import { CreateProductData, UpdateProductData } from '../types/index.js';
 import { Prisma } from '@prisma/client';
 
+import prisma from '../../prisma/prismaClient.js';
+import { CreateProductData, UpdateProductData } from '../types/index.js';
 interface FindManyWithLikesParams {
   where?: Prisma.ProductWhereInput;
   orderBy?: Prisma.ProductOrderByWithRelationInput | Prisma.ProductOrderByWithRelationInput[];

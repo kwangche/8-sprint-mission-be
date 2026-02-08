@@ -1,8 +1,8 @@
 import { Response } from 'express';
+
+import { AuthenticatedRequest } from '../types/express.js';
 import { productFavoriteRepository } from '../repositories/productFavoriteRepository.js';
 import { productRepository } from '../repositories/productRepository.js';
-import { AuthenticatedRequest } from '../types/express.js';
-
 export const productFavoriteController = {
   // 좋아요 토글 (favoriteState 기반)
   async toggleFavorite(req: AuthenticatedRequest<unknown, unknown, { id: string }>, res: Response): Promise<void> {

@@ -1,5 +1,4 @@
 import { User } from './user';
-
 // 상품 기본 타입
 export interface Product {
   id: string;

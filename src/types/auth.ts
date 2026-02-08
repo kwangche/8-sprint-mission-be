@@ -1,5 +1,4 @@
 import { User } from './user';
-
 // 회원가입 요청 데이터
 export interface SignUpData {
   email: string;

@@ -1,7 +1,8 @@
 import express from 'express';
-import { userController } from '../controllers/userController.js';
-import { asyncHandler } from '../middlewares/errorHandler.js';
 import {
+
+import { asyncHandler } from '../middlewares/errorHandler.js';
+import { userController } from '../controllers/userController.js';
   validateUser,
   validateUUID,
   validateLogin,

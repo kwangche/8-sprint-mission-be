@@ -1,5 +1,4 @@
 import { User } from './user';
-
 // 게시글 기본 타입
 export interface Article {
   id: string;

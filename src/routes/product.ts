@@ -1,10 +1,11 @@
 import express from 'express';
+import {
+
+import { asyncHandler } from '../middlewares/errorHandler.js';
 import { productController } from '../controllers/productController.js';
 import { productFavoriteController } from '../controllers/productFavoriteController.js';
-import { asyncHandler } from '../middlewares/errorHandler.js';
-import { validateUUID, validateProduct } from '../middlewares/validation.js';
 import { upload } from '../middlewares/upload.js';
-import {
+import { validateUUID, validateProduct } from '../middlewares/validation.js';
   authenticate,
   optionalAuthenticate,
   authorizeOwner,

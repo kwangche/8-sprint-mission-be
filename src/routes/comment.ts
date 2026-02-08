@@ -1,7 +1,8 @@
 import express from 'express';
-import { commentController } from '../controllers/commentController.js';
-import { asyncHandler } from '../middlewares/errorHandler.js';
 import {
+
+import { asyncHandler } from '../middlewares/errorHandler.js';
+import { commentController } from '../controllers/commentController.js';
   validateUUID,
   validateParamUUID,
   validateCommentData,

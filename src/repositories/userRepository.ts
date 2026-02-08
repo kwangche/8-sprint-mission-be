@@ -1,6 +1,5 @@
 import prisma from '../../prisma/prismaClient.js';
 import { CreateUserData, UpdateUserData } from '../types/index.js';
-
 export const userRepository = {
   // 사용자 생성
   async create({ email, nickname, password }: CreateUserData) {

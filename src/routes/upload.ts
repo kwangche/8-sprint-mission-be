@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { uploadMultiple } from '../middlewares/upload.js';
-import { asyncHandler } from '../middlewares/errorHandler.js';
 
+import { asyncHandler } from '../middlewares/errorHandler.js';
+import { uploadMultiple } from '../middlewares/upload.js';
 const router = express.Router();
 
 // 다중 이미지 업로드 (최대 3개)
