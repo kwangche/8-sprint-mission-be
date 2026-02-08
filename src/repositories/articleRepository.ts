@@ -1,6 +1,8 @@
-import prisma from '../../prisma/prismaClient.js';
-import { CreateArticleData, UpdateArticleData } from '../types/index.js';
 import { Prisma } from '@prisma/client';
+
+import prisma from '../../prisma/prismaClient.js';
+
+import type { CreateArticleData, UpdateArticleData } from '../types/index.js';
 
 interface FindManyParams {
   where?: Prisma.ArticleWhereInput;

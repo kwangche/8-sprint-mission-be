@@ -1,5 +1,6 @@
 import prisma from '../../prisma/prismaClient.js';
-import { CreateUserData, UpdateUserData } from '../types/index.js';
+
+import type { CreateUserData, UpdateUserData } from '../types/index.js';
 
 export const userRepository = {
   // 사용자 생성

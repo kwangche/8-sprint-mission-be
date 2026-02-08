@@ -1,16 +1,10 @@
 import express from 'express';
+
 import { articleController } from '../controllers/articleController.js';
 import { articleFavoriteController } from '../controllers/articleFavoriteController.js';
+import { authenticate, authorizeOwner, optionalAuthenticate } from '../middlewares/auth.js';
 import { asyncHandler } from '../middlewares/errorHandler.js';
-import {
-  validateUUID,
-  validateArticleData,
-} from '../middlewares/validation.js';
-import {
-  authenticate,
-  optionalAuthenticate,
-  authorizeOwner,
-} from '../middlewares/auth.js';
+import { validateArticleData, validateUUID } from '../middlewares/validation.js';
 import { articleRepository } from '../repositories/articleRepository.js';
 
 const router = express.Router();

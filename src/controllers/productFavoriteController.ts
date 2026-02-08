@@ -1,7 +1,9 @@
 import { Response } from 'express';
+
 import { productFavoriteRepository } from '../repositories/productFavoriteRepository.js';
 import { productRepository } from '../repositories/productRepository.js';
-import { AuthenticatedRequest } from '../types/express.js';
+
+import type { AuthenticatedRequest } from '../types/express.js';
 
 export const productFavoriteController = {
   // 좋아요 토글 (favoriteState 기반)

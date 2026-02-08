@@ -1,15 +1,16 @@
-import express from 'express';
-import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import * as dotenv from 'dotenv';
+import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import userRouter from './routes/user.js';
+
+import { errorHandler, notFoundHandler } from './middlewares/errorHandler.js';
 import articleRouter from './routes/article.js';
 import commentRouter from './routes/comment.js';
 import productRouter from './routes/product.js';
 import uploadRouter from './routes/upload.js';
-import { errorHandler, notFoundHandler } from './middlewares/errorHandler.js';
+import userRouter from './routes/user.js';
 import { swaggerUi, specs } from './swagger.js';
 
 dotenv.config();
